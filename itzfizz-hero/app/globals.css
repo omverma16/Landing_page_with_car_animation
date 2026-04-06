@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+body {
+  background-color: #060608;
+  color: #f0ede6;
+  overflow-x: hidden;
+  font-family: var(--font-inter), sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-bebas-neue), sans-serif;
+}
+
+/* Glassmorphism Design Utilities */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+}
+
+.liquid-bg {
+  filter: blur(60px);
+  opacity: 0.15;
+}
+
+/* High-Gloss 3D Button Style */
+.btn-glossy-3d {
+  position: relative;
+  border-radius: 9999px; /* Pill shape */
+  background: linear-gradient(to bottom, #222, #000);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    inset 0 2px 4px rgba(255, 255, 255, 0.3), /* Top shine */
+    inset 0 -4px 8px rgba(0, 0, 0, 0.6),      /* Bottom shade */
+    0 10px 20px rgba(0, 0, 0, 0.8),          /* Drop shadow (depth) */
+    0 0 0 1px rgba(255, 255, 255, 0.05);     /* Outer rim */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.btn-glossy-3d::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), transparent);
+  border-radius: 9999px 9999px 0 0;
+}
+
+.btn-glossy-3d:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 2px 4px rgba(255, 255, 255, 0.4),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.7),
+    0 15px 30px rgba(232, 255, 0, 0.15);      /* Subtle glow on hover */
+  background: linear-gradient(to bottom, #333, #050505);
+}
+
+/* Modern SaaS Button Utilities */
+.btn-saas-secondary:hover {
+  background: #f3f4f6;
+  box-shadow: 0 6px 20px rgba(139,92,246,0.15); /* Soft purple-ish glow */
+  transform: scale(1.02);
+}
+
+/* Premium 3D Black Button (Automotive Style) */
+.btn-premium-3d-black {
+  background: #000000;
+  color: #ffffff;
+  border-radius: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 12px 24px -6px rgba(0, 0, 0, 0.5),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.4),
+    0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-premium-3d-black:hover {
+  transform: translateY(-4px);
+  background: #050505;
+  box-shadow: 
+    0 20px 40px -10px rgba(0, 0, 0, 0.6),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.5),
+    0 8px 16px rgba(232, 255, 0, 0.1); /* Subtle logo-color glow */
+}
+
+.btn-premium-3d-black:active {
+  transform: translateY(1px);
+  box-shadow: 
+    0 4px 8px -2px rgba(0, 0, 0, 0.5),
+    inset 0 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* Scroll-hint line pulse */
+@keyframes scrollLinePulse {
+  0%   { transform: scaleY(0); opacity: 0;   transform-origin: top;    }
+  40%  { transform: scaleY(1); opacity: 1;   transform-origin: top;    }
+  60%  { transform: scaleY(1); opacity: 0.6; transform-origin: top;    }
+  100% { transform: scaleY(0); opacity: 0;   transform-origin: bottom; }
+}
