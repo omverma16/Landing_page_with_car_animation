@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useRef, useLayoutEffect } from "react";
+import React, { useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,48 +14,43 @@ const HeroSection = () => {
     const textRef      = useRef<HTMLDivElement>(null);
     const bgRef        = useRef<HTMLDivElement>(null);
 
-    useLayoutEffect(() => {
-        const ctx = gsap.context(() => {
+    useGSAP(() => {
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top top",
+                end: "+=2500",
+                pin: true,
+                scrub: 1,
+                anticipatePin: 1,
+            }
+        });
 
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: "top top",
-                    end: "+=2500",
-                    pin: true,
-                    scrub: 1,
-                    anticipatePin: 1,
-                }
-            });
+        // Car: rear starts at left edge (x=0), moves to resting point (x=52vw)
+        tl.fromTo(
+            carRef.current,
+            { x: "0vw" },
+            { x: "52vw", ease: "none" },
+            0
+        );
 
-            // Car: rear starts at left edge (x=0), moves to resting point (x=52vw)
-            tl.fromTo(
-                carRef.current,
-                { x: "0vw" },
-                { x: "52vw", ease: "none" },
-                0
-            );
+        // Text: clip-path synced with car tail — reveals left to right behind the car
+        tl.fromTo(
+            textRef.current,
+            { clipPath: "inset(0 100% 0 0)" },
+            { clipPath: "inset(0 48% 0 0)", ease: "none" },
+            0
+        );
 
-            // Text: clip-path synced with car tail — reveals left to right behind the car
-            tl.fromTo(
-                textRef.current,
-                { clipPath: "inset(0 100% 0 0)" },
-                { clipPath: "inset(0 48% 0 0)", ease: "none" },
-                0
-            );
+        // Subtle background parallax
+        tl.fromTo(
+            bgRef.current,
+            { x: "0%" },
+            { x: "-6%", ease: "none" },
+            0
+        );
 
-            // Subtle background parallax
-            tl.fromTo(
-                bgRef.current,
-                { x: "0%" },
-                { x: "-6%", ease: "none" },
-                0
-            );
-
-        }, containerRef);
-
-        return () => ctx.revert();
-    }, []);
+    }, { scope: containerRef });
 
     return (
         <div ref={containerRef} className="relative bg-[#020202]">
@@ -107,13 +104,15 @@ const HeroSection = () => {
                 <div
                     ref={carRef}
                     className="absolute left-0 top-0 z-20 h-full pointer-events-none will-change-transform"
-                    style={{ width: "45vw", minWidth: "420px" }}
+                    style={{ width: "49.5vw", minWidth: "462px" }}
                 >
                     <div className="relative h-full flex items-center">
-                        <img
+                        <Image
                             src="/car.png"
                             alt="ItzFizz Supercar"
-                            className="w-full h-auto object-contain"
+                            fill
+                            priority
+                            className="object-contain"
                             style={{ filter: "drop-shadow(0 50px 80px rgba(0,0,0,0.95))" }}
                         />
                         <div

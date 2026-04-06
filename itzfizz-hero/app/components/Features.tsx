@@ -69,7 +69,7 @@ const Features = () => {
                                 className="flex flex-col items-center justify-center py-12 border-x-[1px] border-white/5 hover:bg-white/[0.02] transition-colors group"
                             >
                                 <p className="text-gray-500 uppercase tracking-widest text-[10px] font-bold mb-4 group-hover:text-[#e8ff00] transition-colors">
-                                    // {stat.label}
+                                    {"// "} {stat.label}
                                 </p>
                                 <div className="flex items-baseline gap-1">
                                     <span className="text-6xl md:text-8xl font-black leading-none">{stat.value}</span>
